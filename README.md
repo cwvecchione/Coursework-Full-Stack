@@ -4,6 +4,9 @@ A collection of projects I developed while working towards the Zenva Academy: [F
 ## MERN-Record-List
 One of my ealiest React apps, a simple record list app that was created using MERN (MongoDB, Express, React, Node.js).
 
+## E-Commerce-Site-UI
+This is a mock e-commerce site styled using Semantic UI.
+
 ## GithubUserSearch
 GitHub user search application built in Angular. Allows a user to login, input search terms, and receive results from the GitHub RESTful API.
 

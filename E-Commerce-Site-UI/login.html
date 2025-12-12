@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+
+    <style type="text/css">
+        .grid {
+            height: 100%;
+        }
+
+        .column {
+            max-width: 450px;
+            padding: 20px;
+            border: 1.5px solid #0E6EB8;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class='ui middle aligned center aligned grid'>
+        <div class='column'>
+            <h1 class='ui header'>
+                Login to your account
+            </h1>
+            <form class="ui large form" action='admin.html'>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <input type="text" name="email" placeholder="Email">
+                        <i class="user icon"></i>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <input type="password" name="password" placeholder="Password">
+                        <i class="keyboard icon"></i>
+                    </div>
+                </div>
+                <button class="ui fluid blue button" type="submit">Login</button>
+                <br>
+                <button class="ui fluid basic button" type="button">Forgot password?</button>
+                <div class="ui error message"></div>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var emails = ['test@gmail.com', 'admin@gmail.com'];
+        var passwords = ['test', 'admin'];
+        $.fn.form.settings.rules.isUserValid = function () {
+            var email = $('.ui.form').form('get value', 'email');
+            var password = $('.ui.form').form('get value', 'password');
+            for (var i = 0; i < emails.length; i++) {
+                if (email == emails[i] && password == passwords[i]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        $('.ui.form')
+            .form({
+                fields: {
+                    email: {
+                        identifier: 'email',
+                        rules: [{
+                            type: 'contains[@]',
+                            prompt: 'Please enter a valid email'
+                        }]
+                    },
+                    password: {
+                        identifier: 'password',
+                        rules: [{
+                            type: 'empty',
+                            prompt: 'Please enter a password'
+                        }]
+                    }
+                }
+            });
+    </script>
+
+</body>
+
+</html>
