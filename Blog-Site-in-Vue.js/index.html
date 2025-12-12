@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Blog Site</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+        <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+        <script src="semantic/dist/semantic.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    </head>
+    <body>
+        <h2 class="ui header">
+            <i class="comment alternate icon"></i>
+            <div class="content">
+                Welcome to my Blog Site!
+            </div>
+        </h2>
+
+        <div id='blogPosts'>
+            <blog-post
+                v-for='post in posts'
+                v-bind:blogpost='post'
+            ></blog-post>
+        </div>
+        
+        <div id='blogPostCreation' class='ui fluid raised card'>
+            <div class="ui header">Make a new blog post</div>
+            <input v-model='title' placeholder='Post Title'><br>
+            <input v-model='username' placeholder='Username'><br>
+            <input v-model='date' placeholder='Date'><br>
+            <input v-model='content' placeholder='Description'><br>
+            <div class="extra content">
+                <button v-on:click='publishPost' class="ui button">Publish Post</button>
+            </div>
+        </div>
+
+        <script>
+
+        Vue.component('blog-post', {
+            props: ['blogpost'],
+            template: `<div id='singleBlogPost' class='ui fluid raised card'>
+                            <div class="content">
+                                <div class="header">{{ blogpost.title }}</div>
+                            </div>
+                            <div class="content">
+                                <h4 class="ui sub header">{{ blogpost.date }}</h4>
+                                <div class="ui small feed">
+                                <div class="event">
+                                    <div class="content">
+                                        <div class="summary">
+                                            {{ blogpost.content }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="event">
+                                </div>
+                                </div>
+                            </div>
+                            <div class="extra content">
+                                <h5>Posted by {{ blogpost.username }}</h5
+                            </div>
+                        </div>`,
+        })
+
+        var blogVue = new Vue({
+            el: '#blogPosts',
+            data: {
+                posts: [
+                    {title: 'First Post', username: 'Chris', date: 'Dec 8, 2020', content: 'This is the content of my very interesting first post.'},
+                    {title: 'Second Post', username: 'Chris', date: 'Dec 9, 2020', content: 'This is the content of my very interesting second post. I hope you like it'},
+                ]
+            }
+        })
+
+        var postBlogVue = new Vue({
+ 
+            el: '#blogPostCreation',
+
+            data: {
+                title: '',
+                username: '',
+                date: '',
+                content: '',
+            },
+
+            methods: {
+                publishPost: function() {
+
+                    var newPost = {
+                        title: this.title,
+                        username: this.username,
+                        date: this.date,
+                        content: this.content
+                    }
+
+                    blogVue.posts.push(newPost)
+
+                    this.title = ''
+                    this.username = ''
+                    this.date = ''
+                    this.content = ''
+                }
+            }
+        })
+
+        </script>
+    </body>
+</html>
